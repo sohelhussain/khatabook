@@ -1,36 +1,38 @@
 const mongoose = require("mongoose");
 
-const userModel = mongoose.Schema(
-  {
-    username: {
-      type: String,
-      trim: true,
-      minLength: 3,
-      maxLenght: 20,
-      required: true,
-    },
-    name: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    profilepicture: {
-      type: String,
-      trim: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      select: false,
-    },
-    passwords: {
-      typeof: String,
-      required: true,
-      select: false,
-    },
-    hisaab: [{ type: mongoose.Schema.Types.ObjectId, ref: "Hisaab" }],
+const userModel = mongoose.Schema({
+  username: {
+    type: String,
+    trim: true,
+    required: true,
+    minLength: 3,
+    maxLength: 20,
   },
-  { timestamp: true }
-);
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  dp: {
+    type: String,
+    trim: true,
+    default: "default.jpg",
+  },
+  email: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  hisaab: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "hisaab",
+    },
+  ],
+});
 
-module.exports = mongoose.model('User',userModel);
+module.exports = mongoose.model("user", userModel);
