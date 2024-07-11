@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 const userModel = require("../models/user-model");
 
 module.exports.isLoggedIn = async (req, res, next) => {
-  try {
     if (req.cookies.token === "") {
       res.redirect("/");
     } else {
@@ -14,20 +13,12 @@ module.exports.isLoggedIn = async (req, res, next) => {
         req.user = oldUser;
       }
     }
-  } catch (err) {
-    res.redirect("/");
-  }
   next();
 };
 module.exports.redirectToProfile = async (req, res, next) => {
-  try {
-    if (req.cookies.token) {
+    if (req.cookies.token === "") {
       res.redirect("/profile");
     } else {
-      res.redirect("/");
+      next();
     }
-  } catch (err) {
-    res.send(err.message);
-  }
-  next();
 };

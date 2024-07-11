@@ -10,7 +10,7 @@ const {
 } = require("../controllers/index-controller");
 const { isLoggedIn, redirectToProfile } = require("../middlewares/auth-middlewares");
 
-router.get("/", redirectToProfile,landingPageController);
+router.get("/", redirectToProfile, landingPageController);
 router.get("/register", redirectToProfile, registerPageController);
 router.get("/logout", logoutController);
 router.get("/profile", isLoggedIn, profileController);
