@@ -3,11 +3,11 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 module.exports.landingPageController = (req, res) => {
-    res.render("index");
+    res.render("index", {nav: false});
 };
 
 module.exports.registerPageController = (req, res) => {
-    res.render("register", { error: true });
+    res.render("register", { error: true, nav: false });
 };
 
 module.exports.postRegisterPageController = async (req, res) => {
@@ -30,7 +30,7 @@ module.exports.postRegisterPageController = async (req, res) => {
       process.env.JWT_SECRET_KEY
     );
     res.cookie("token", token);
-    res.send("account created successfully");
+    res.redirect("/profile");
 };
 
 module.exports.postLoginController = async (req, res) => {
