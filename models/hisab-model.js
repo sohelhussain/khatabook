@@ -38,4 +38,4 @@ const hisabModel = mongoose.Schema(
   { timestamp: true }
 );
 
-module.exports = mongoose.model("Hisaab", hisabModel);
+module.exports = mongoose.model("hisaab", hisabModel);

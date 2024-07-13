@@ -1,4 +1,5 @@
 const userModel = require("../models/user-model");
+const hisabModel = require("../models/hisab-model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -63,5 +64,7 @@ module.exports.logoutController = async (req, res) => {
 // profile user
 
 module.exports.profileController = async (req, res) => {
-    res.render("profile", { user: req.user });
+  let user = await userModel.findOne({ email: req.user.email }).populate("hisaab");
+  console.log(user);
+    res.render("profile", { user });
 };

@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const indexRouter = require('./routes/index-router');
+const hisaabRouter = require('./routes/hisaab-router');
 const db = require('./config/mongoose-connection');
 const cookieParser = require('cookie-parser');
 
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
-app.use('/', indexRouter)
+app.use('/', indexRouter);
+app.use('/hisaab', hisaabRouter);
 
 app.listen(3000);
