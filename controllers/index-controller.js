@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 module.exports.landingPageController = (req, res) => {
-    res.render("index", {nav: false});
+    res.render("index", {nav: false, error: false});
 };
 
 module.exports.registerPageController = (req, res) => {
@@ -64,7 +64,17 @@ module.exports.logoutController = async (req, res) => {
 // profile user
 
 module.exports.profileController = async (req, res) => {
-  let user = await userModel.findOne({ email: req.user.email }).populate("hisaab");
-  console.log(user);
+  let byDate = Number(req.query.byDate);
+  let {startDate, endDate} = req.query;
+
+  byDate = byDate ? byDate : -1;
+  startDate = startDate ? startDate : new Date("1970-01-01");
+  endDate = endDate ? endDate : new Date();
+
+  let user = await userModel.findOne({ email: req.user.email }).populate({
+    path: "hisaab",
+    match: {createdAt: {$gte: startDate, $lte: endDate}},
+    options: {sort: {createdAt: byDate}}
+  });
     res.render("profile", { user });
 };

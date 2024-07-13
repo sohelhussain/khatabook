@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const {createHisaabController, hisaabPageController} =require('../controllers/hisaab-controller');
+const {isLoggedIn} = require('../middlewares/auth-middlewares')
 
-router.get('/', (req, res, next) => {
-    res.send('Welcome to the hisaab get')
-})
+router.get('/create', isLoggedIn, hisaabPageController)
+router.post('/create', isLoggedIn, createHisaabController)
 
 module.exports = router
