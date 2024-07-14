@@ -13,8 +13,20 @@ module.exports.registerPageController = (req, res) => {
 
 module.exports.postRegisterPageController = async (req, res) => {
     let { name, username, email, password } = req.body;
-    let user = await userModel.findOne({ email });
-    if (user) return res.send("you are already registered please login");
+    if(!name || !username || !password || !email){
+      req.flash('error', 'All fields are required');
+      return res.redirect('/register');
+    }
+    let emailUser = await userModel.findOne({ email });
+    if (emailUser){
+       req.flash("error", "please login again onther account, or try to login");
+      return res.redirect('/register');
+    } 
+    let usernameUser = await userModel.findOne({ username });
+    if (usernameUser){
+       req.flash("error", "please login again onther account, or try to login");
+      return res.redirect('/register');
+    } 
 
     let salt = await bcrypt.genSalt(10);
     let hash = await bcrypt.hash(password, salt);
@@ -39,6 +51,7 @@ module.exports.postLoginController = async (req, res) => {
     let user = await userModel
       .findOne({ email: emailorusername })
       .select("+password");
+      console.log(user);
     if (!user)
       return res.send("you are not registered || please create a new account");
     let result = await bcrypt.compare(password, user.password);

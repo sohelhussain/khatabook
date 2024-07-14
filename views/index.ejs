@@ -1,31 +1,15 @@
-<%- include("./partials/header.ejs") %>
-<div class="w-full h-[80%] p-10 flex justify-center items-center">
-  <div class="login w-1/4 p-4 bg-zinc-100 rounded-md">
-    <form action="/login" method="post" class="flex flex-col gap-4 items-start">
-      <h1 class="text-2xl mb-2">Login now.</h1>
-      <% if(error.length > 0){ %>
-      <p class="text-red-500"><%= error[0] %></p>
-      <%} %>
-      <input
-        class="block border-[1px] border-zinc-400 w-full rounded-md p-2"
-        type="text"
-        placeholder="Email or Username"
-        name="emailorusername"
-      />
-      <input
-        class="block border-[1px] border-zinc-400 w-full rounded-md p-2"
-        type="password"
-        placeholder="password"
-        name="password"
-      />
-      <input
-        type="submit"
-        class="text-white bg-blue-500 rounded-md px-4 py-1"
-      />
-      <a class="text-blue-500 mt-4 inline-block" href="/register"
-        >Don't have an account</a
-      >
-    </form>
-  </div>
-</div>
-<%- include("./partials/footer.ejs") %>
+<%- include('./partials/header.ejs') %>
+    <div class="logincontainer w-full h-[80%] flex items-center justify-center">
+        <div class="loginpanel">
+            <h3 class="text-2xl mb-3">Login</h3>
+            <form autocomplete="off" action="/login" class="flex flex-col gap-2 items-start" method="post">
+                <input class="block px-3 py-2 border-[1px] border-zinc-100 rounded-md" type="text"
+                    placeholder="Email or Username" name="email">
+                <input class="block px-3 py-2 border-[1px] border-zinc-100 rounded-md" type="password"
+                    placeholder="password" name="password">
+                <input class="block px-4 py-2 bg-blue-500 rounded-md text-white" type="submit" value="Login">
+            </form>
+            <a class="mt-5 inline-block text-blue-500" href="/register">Don't have an account ?</a>
+        </div>
+    </div>
+    <%- include('./partials/footer.ejs') %>

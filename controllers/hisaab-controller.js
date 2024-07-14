@@ -16,6 +16,7 @@ module.exports.createHisaabController = async (req, res, next) => {
   encrypted = encrypted === "on" ? true : false;
   shareable = shareable === "on" ? true : false;
   editpermissions = encrypted === "on" ? true : false;
+
   const hisaab = await hisaabModel.create({
     title,
     description,
@@ -25,6 +26,7 @@ module.exports.createHisaabController = async (req, res, next) => {
     shareable,
     editpermissions,
   });
+  console.log(hisaab);
   req.user.hisaab.push(hisaab._id);
   await req.user.save();
   res.redirect("/profile");
