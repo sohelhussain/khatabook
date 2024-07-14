@@ -11,20 +11,20 @@
             <div class="flex space-x-4">
                 <button class="bg-blue-500 text-white px-4 py-2 rounded">Encrypted</button>
                 <button class="sharebtn text-gray-700 px-4 py-2 rounded flex items-center space-x-2">
-                    <span>Share as a link</span>
+                    <span id="copyUrl">Share as a link</span>
                 </button>
-                <a href="/hisaab/delete" class="bg-red-500 text-white px-4 py-2 rounded">Delete</a>
-                <a href="/hisaab/edit" class="bg-yellow-400 text-white px-4 py-2 rounded">Edit</a>
+                <a href="/hisaab/delete/<%= hisaab._id %>" class="bg-red-500 text-white px-4 py-2 rounded">Delete</a>
+                <a href="/hisaab/edit/<%= hisaab._id %>" class="bg-yellow-400 text-white px-4 py-2 rounded">Edit</a>
             </div>
         </div>
-        <div class="text-gray-500 mb-4">Created on <%= new Date(hisaab.createdAt).getDate() %>-<%= new
-                    Date(hisaab.createdAt).getMonth()+1 %>-<%= new Date(hisaab.createdAt).getFullYear() %>
+        <div class="text-gray-500 mb-4">Created on <%= hisaab.createdAt.getDate() %> - 
+            <%= hisaab.createdAt.getMonth() %> - <%= hisaab.createdAt.getFullYear() %>
         </div>
         <h2 class="text-xl font-semibold mb-2">
             <%= hisaab.title %>
         </h2>
         <p class="text-gray-700">
-            <%= hisaab.data %>
+            <%= hisaab.description %>
         </p>
     </div>
 
@@ -43,6 +43,11 @@
                     .classList.add("hidden");
             }, 3000)
         })
+
+
+        document.querySelector('#copyUrl').addEventListener("click", function (e) {
+            navigator.clipboard.writeText(window.location.href);
+        });
     </script>
 
-    <%- include('./partials/footer.ejs') %>
+    <%- include('./partials/footer.ejs') %> 
