@@ -47,11 +47,10 @@ module.exports.postRegisterPageController = async (req, res) => {
 };
 
 module.exports.postLoginController = async (req, res) => {
-    let { emailorusername, password } = req.body;
+    let { email, password } = req.body;
     let user = await userModel
-      .findOne({ email: emailorusername })
+      .findOne({ email })
       .select("+password");
-      console.log(user);
     if (!user)
       return res.send("you are not registered || please create a new account");
     let result = await bcrypt.compare(password, user.password);
